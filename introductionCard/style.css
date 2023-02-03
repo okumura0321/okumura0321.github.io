@@ -4,6 +4,7 @@ h1{
 }
 table, td, th {
     border: 2px #000000 solid;
+    font-size:35px;
 }
 body {
    background-color: #486d46;            /* 背景色 */
