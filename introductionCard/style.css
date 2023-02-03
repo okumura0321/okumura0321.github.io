@@ -2,8 +2,8 @@ h1{
     font-size:50px;
     font-family: "メイリオ";
 }
-table{
-    font-size:20px;
+table, td, th {
+    border: 2px #000000 solid;
 }
 body {
    background-color: #486d46;            /* 背景色 */
