@@ -3,14 +3,14 @@ h1{
   font-family: "メイリオ";
 }
 a {
-  font-size:30px;
+  font-size:25px;
 }
 body {
-  font-size:40px;
+  font-size:35px;
 }
 table, td, th {
   border: 2px #000000 solid;
-  font-size:30px;
+  font-size:25px;
 }
 table > tbody > tr {
   counter-increment: rowCount;
@@ -20,7 +20,7 @@ table > tbody > tr > td:first-child::before {
 }
 body {
   background-color: #486d46;            /* 背景色 */
-  background-image: url("background3.jpg");  /* 画像 */
+  background-image: url("background4.jpg");  /* 画像 */
   background-size: cover;               /* 全画面 */
   background-attachment: fixed;         /* 固定 */
   background-position: center center;   /* 縦横中央 */
