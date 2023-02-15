@@ -1,0 +1,32 @@
+h1{
+  font-size:50px;
+  font-family: "メイリオ";
+}
+a {
+  font-size:25px;
+}
+body {
+  font-size:35px;
+  color:brack;
+}
+table, td, th {
+  border: 2px #000000 solid;
+  font-size:20px;
+}
+table > tbody > tr {
+  counter-increment: rowCount;
+}
+table > tbody > tr > td:first-child::before {
+  content: counter(rowCount);
+}
+body {
+  background-color: #486d46;            /* 背景色 */
+  background-image: url("background2.png");  /* 画像 */
+  background-size: cover;               /* 全画面 */
+  background-attachment: fixed;         /* 固定 */
+  background-position: 0% center;   /* 縦横中央 */
+  font-family: 'Nico Moji';
+}
+h1 {
+  font-family: 'Nico Moji';
+}
