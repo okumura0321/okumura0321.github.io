@@ -24,7 +24,7 @@ body {
   background-image: url("background2.png");  /* 画像 */
   background-size: cover;               /* 全画面 */
   background-attachment: fixed;         /* 固定 */
-  background-position: 0% center;   /* 縦横中央 */
+  background-position: 35% center;   /* 縦横中央 */
   font-family: 'Nico Moji';
 }
 h1 {
