@@ -7,7 +7,7 @@ a {
 }
 body {
   font-size:35px;
-  color:brack;
+  color:#000000;
 }
 table, td, th {
   border: 2px #000000 solid;
@@ -21,7 +21,7 @@ table > tbody > tr > td:first-child::before {
 }
 body {
   background-color: #486d46;            /* 背景色 */
-  background-image: url("background2.png");  /* 画像 */
+  background-image: url("background2.jpg");  /* 画像 */
   background-size: cover;               /* 全画面 */
   background-attachment: fixed;         /* 固定 */
   background-position: 35% center;   /* 縦横中央 */
