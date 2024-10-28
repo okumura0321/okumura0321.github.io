@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カスタムチーム分け</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 600px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #2f4f4f;
+      margin-bottom: 20px;
+    }
+    .name-inputs, .team-inputs, .result, .buttons {
+      margin-top: 15px;
+    }
+    .name, .team {
+      display: flex;
+      align-items: center;
+      margin: 5px;
+    }
+    .name input[type="text"], .team input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .name input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #4682b4;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #5a9bd4;
+    }
+    .team button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 14px;
+      background-color: #dc143c;
+    }
+    .team button:hover {
+      background-color: #ff5c5c;
+    }
+    .result p {
+      margin: 5px 0;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>カスタムチーム分け</h1>
+    <div class="name-inputs">
+      <h2>参加する名前を選択してください</h2>
+      <div id="name-container">
+        <div class="name"><input type="checkbox"><input type="text" value="素っ頓狂伯爵"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="鉄砲ぱきゅんぱきゅん"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="うるぱんち"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="miu_turn"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="ほりちゃん"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="inazuma-zipang"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="kureson"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="Tigermask"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="シノンクン"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="らむちゃん"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="りょむさん"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="くららさん"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="れいさん"></div>
+        <div class="name"><input type="checkbox"><input type="text" value="海老名あお"></div>
+      </div>
+    </div>
+
+    <div class="team-inputs">
+      <h2>チーム名を入力してください</h2>
+      <div id="team-container">
+        <div class="team"><input type="text" value="チーム1"><button onclick="removeTeam(this)">削除</button></div>
+        <div class="team"><input type="text" value="チーム2"><button onclick="removeTeam(this)">削除</button></div>
+      </div>
+      <button onclick="addTeam()">チームを追加</button>
+    </div>
+
+    <div class="result">
+      <h2>結果</h2>
+      <div id="result"></div>
+    </div>
+
+    <div class="buttons">
+      <button id="executeButton" onclick="executeAmida()">実行</button>
+    </div>
+  </div>
+
+  <script>
+    const resultDisplay = document.getElementById('result');
+    const teamContainer = document.getElementById('team-container');
+    const executeButton = document.getElementById('executeButton');
+
+    function addTeam() {
+      const newTeamDiv = document.createElement('div');
+      newTeamDiv.classList.add('team');
+      newTeamDiv.innerHTML = `<input type="text" placeholder="チーム"><button onclick="removeTeam(this)">削除</button>`;
+      teamContainer.appendChild(newTeamDiv);
+    }
+
+    function removeTeam(button) {
+      if (teamContainer.children.length > 2) {
+        button.parentElement.remove();
+      } else {
+        alert("チームは少なくとも2つ必要です。");
+      }
+    }
+
+    function executeAmida() {
+      const selectedNames = Array.from(document.querySelectorAll('#name-container .name'))
+                                 .filter(nameDiv => nameDiv.querySelector('input[type="checkbox"]').checked)
+                                 .map(nameDiv => nameDiv.querySelector('input[type="text"]').value.trim())
+                                 .filter(name => name);
+
+      const teams = Array.from(document.querySelectorAll('#team-container input[type="text"]'))
+                         .map(input => input.value.trim())
+                         .filter(team => team);
+
+      if (selectedNames.length === 0 || teams.length === 0) {
+        alert("参加する名前とチーム名を入力してください。");
+        return;
+      }
+
+      resultDisplay.innerHTML = '実行中...';
+
+      setTimeout(() => {
+        resultDisplay.innerHTML = '';
+        const shuffledResults = shuffleResults(selectedNames, teams);
+
+        shuffledResults.sort((a, b) => a.team.localeCompare(b.team)).forEach(({ name, team }) => {
+          const resultText = document.createElement('p');
+          resultText.textContent = `${name} - ${team}`;
+          resultDisplay.appendChild(resultText);
+        });
+
+        executeButton.textContent = "再実行";  // 実行ボタンを再実行に変更
+      }, 1500);  // 1500ミリ秒の遅延
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function shuffleResults(names, teams) {
+      const results = [];
+      shuffleArray(names);
+      shuffleArray(teams);
+      const teamCount = teams.length;
+      for (let i = 0; i < names.length; i++) {
+        results.push({ name: names[i], team: teams[i % teamCount] });
+      }
+      return results;
+    }
+  </script>
+</body>
+</html>
